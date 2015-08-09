@@ -19,7 +19,7 @@ initial_msg = [
     '',
     'Welcome to 채트채트, ',
     'This server is purpose on http2/long polling/web socket benchtest',
-    'If you upper message as Hello, Plz reload this page',
+    'If upper message dose not look like "Hello", Plz reload this page',
     'Develop by Luavis',
     '',
     '',
