@@ -15,11 +15,11 @@
             <div class="chat-body-wrap">
                 <div class="chat-body" ng-controller="ChatController">
                     <div class="chat-content-wrap">
-                        <div class="chat-content" ng-repeat="msg in msgs">
-                            <div class="chat-message row clearfix">
+                        <div class="chat-content">
+                            <div class="chat-message row clearfix"  ng-repeat="msg in msgs">
                             {% raw %}
                                 <div class="time cell">{{ msg.time }}</div>
-                                <div class="text cell">{{ msg.text }}</div>
+                                <div class="text cell"><pre>{{ msg.text }}</pre></div>
                             {% endraw %}
                             </div>
                         </div>
