@@ -19,8 +19,14 @@
         });
 
         $scope.send_msg = function() {
+            
+            if($scope.new_msg.length == 0 ||
+               $scope.new_msg.replace(/^[\s]+/, '').length == 0)  // pass empty message
+                return;
+
             var timestamp = new Date().getTime() / 1000;
             socket.emit('send_msg', {msg: $scope.new_msg, timestamp: timestamp});
+            $scope.new_msg = ''
         }
 
         socket.emit('test_msg', {})

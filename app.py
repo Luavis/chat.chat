@@ -19,7 +19,10 @@ initial_msg = [
     '',
     'Welcome to 채트채트, ',
     'This server is purpose on http2/long polling/web socket benchtest',
+    'If you upper message as Hello, Plz reload this page',
     'Develop by Luavis',
+    '',
+    '',
 ]
 
 
@@ -40,17 +43,18 @@ def test_msg(data):
             'timestamp': time(),
         })
 
+
 @socketio.on('send_msg', namespace="/msg")
 def recieve_msg(data):
 
     msg = data.get('msg')
 
-    if msg is not None:
+    if msg is not None or len(msg) is not 0 or len(msg.lstrip()) == 0:
 
         now = datetime.utcnow() + timedelta(hours=9)  # GMT +0900
 
         emit("recv_msg", {
-            'text': msg,
+            'text': msg.rstrip(),
             'time': now.strftime('%H:%M:%S'),
             'timestamp': time(),
         }, broadcast=True)
