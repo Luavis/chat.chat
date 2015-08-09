@@ -52,8 +52,6 @@ def recieve_msg(data):
 
     msg = data.get('msg')
 
-    print('msg', msg)
-
     if msg is not None or len(msg) is not 0 or len(msg.lstrip()) == 0:
 
         now = datetime.utcnow() + timedelta(hours=9)  # GMT +0900
