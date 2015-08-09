@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template
-from flask.ext.socketio import SocketIO, emit
+from flask.ext.socketio import SocketIO, send, emit
 from time import time
 from datetime import datetime, timedelta
 
@@ -35,19 +35,24 @@ def hello():
 def test_msg(data):
 
     now = datetime.utcnow() + timedelta(hours=9)  # GMT +0900
+    # emit('recv_msg', {
+    #     'text': 'Hello World'
+    # })
 
-    for msg in initial_msg:
-        emit('recv_msg', {
-            'text': msg,
-            'time': now.strftime('%H:%M:%S'),
-            'timestamp': time(),
-        })
+    # for msg in initial_msg:
+    emit('recv_msg', {
+        'text': '\r\n'.join(msg for msg in initial_msg),
+        'time': now.strftime('%H:%M:%S'),
+        'timestamp': time(),
+    })
 
 
 @socketio.on('send_msg', namespace="/msg")
 def recieve_msg(data):
 
     msg = data.get('msg')
+
+    print('msg', msg)
 
     if msg is not None or len(msg) is not 0 or len(msg.lstrip()) == 0:
 

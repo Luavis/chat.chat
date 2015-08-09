@@ -4,7 +4,10 @@ html {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: "NanumGothic", "나눔고딕", sans-serif;
+    font-family: "NanumGothic", "나눔고딕", "Nanum Gothic", sans-serif;
+}
+pre {
+    font-family: "NanumGothic", "나눔고딕", "Nanum Gothic", sans-serif;
 }
 body {
     margin: 0;

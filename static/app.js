@@ -1,12 +1,12 @@
 "use strict";
 
 (function() {
+    var socket = io.connect("http://localhost:5000/msg");
     var chatApp = angular.module('chatchat', []);
 
     chatApp.controller('ChatController', function($scope, $element) {
         $scope.msgs = [];
 
-        var socket = io.connect("http://localhost:5000/msg");
         var msgDOM = $element[0].getElementsByClassName('chat-content-wrap')[0];
 
         socket.on('recv_msg', function(data) {
