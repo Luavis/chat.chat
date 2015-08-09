@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" ng-app="chatchat">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatChat</title>
+    <meta name="viewport" property="width=device-width">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div id="chat-wrap">
+        <section id="chat-container">
+            <h2 class="title">
+                채트채트
+            </h2>
+            <div class="chat-body-wrap">
+                <div class="chat-body" ng-controller="ChatController">
+                    <div class="chat-content-wrap">
+                        <div class="chat-content" ng-repeat="msg in msgs">
+                            <div class="chat-message row clearfix">
+                            {% raw %}
+                                <div class="time cell">{{ msg.time }}</div>
+                                <div class="text cell">{{ msg.text }}</div>
+                            {% endraw %}
+                            </div>
+                        </div>
+                    </div>
+                    <form action="#!/chat">
+                        <div class="chat-input-wrap">
+                            <div class="chat-input clearfix">
+                                <div class="text-box-wrap">
+                                    <input type="text" class="text-box" placeholder="메세지를 입력해주세요." ng-model="new_msg">
+                                </div>
+                                <div class="submit-wrap">
+                                    <input type="submit" class="submit" value="보내기" ng-click="send_msg()">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="{{ url_for('static', filename='socket.io.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular.js') }}"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
