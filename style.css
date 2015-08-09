@@ -1,0 +1,154 @@
+@charset 'utf-8';
+
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "NanumGothic", "나눔고딕", sans-serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%
+}
+
+#chat-wrap {
+    background: white;
+    height: 100%;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#chat-container {
+    border: 1px solid #a3a3a3;
+    box-shadow: 0px 0px 5px #2288ff;
+    height: 100%;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#chat-container > .title {
+    margin: 10px 0;
+    padding: 10px;
+    border-bottom: 1px solid #b2b2b2;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    top: 0px;
+}
+
+#chat-container > .chat-body-wrap {
+    position: absolute;
+    top: 71px;
+    bottom: 0px;
+    width: 100%;
+}
+
+.chat-body {
+    position: relative;
+    height: 100%;
+}
+
+.chat-content-wrap {
+    top: 0px;
+    bottom: 38px;
+    width: 100%;
+    overflow: scroll;
+    position: absolute;
+}
+
+.chat-content {
+    display: table;
+    border-collapse: collapse;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+}
+
+.chat-content > .chat-message > .time {
+    color: #b2b2b2;
+    font-size: 12px;
+    padding: 0 10px;
+    border-right: 1px solid #b2b2b2;
+    height: 18px;
+}
+
+.chat-content > .chat-message  > .text {
+    padding-left: 10px;
+    font-size: 15px;
+    height: 15px;
+}
+
+.chat-input-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+}
+
+.chat-input {
+    position: relative;
+    padding: 3px;
+    height: 38px;
+    width: 100%;
+    background: #4488ff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.chat-input > .text-box-wrap {
+    height: 32px;
+    float: left;
+    position: absolute;
+    left: 5px;
+    right: 73px;
+}
+
+.chat-input > .submit-wrap {
+    height: 32px;
+    position: absolute;
+    right: 5px;
+}
+
+.chat-input > .text-box-wrap > .text-box {
+    width: 100%;
+    line-height: 28px;
+    color: #545454;
+    border-radius: 3px;
+    border: 1px solid #a3a3a3;
+    outline: medium none;
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.chat-input > .submit-wrap > .submit {
+    width: 56px;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    border: 1px solid #a3a3a3;
+    border-radius: 3px;
+    background: white;
+}
+
+.clearfix:after {
+    content: "";
+    clear: both;
+    height: 1px;
+    display: block;
+}
