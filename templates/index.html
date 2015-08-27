@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <form action="#!/chat">
+                    <form action="#">
                         <div class="chat-input-wrap">
                             <div class="chat-input clearfix">
                                 <div class="text-box-wrap">
@@ -41,7 +41,9 @@
             </div>
         </section>
     </div>
-    <script src="{{ url_for('static', filename='socket.io.js') }}"></script>
+    <script>
+        var user_id = {{ user_id }};
+    </script>
     <script src="{{ url_for('static', filename='angular.js') }}"></script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>

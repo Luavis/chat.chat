@@ -1,67 +1,76 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template
-from flask.ext.socketio import SocketIO, send, emit
 from time import time
 from datetime import datetime, timedelta
+from flask import request
+from flask import jsonify
+from gevent import sleep
+from gevent import monkey
+from random import random
+
+monkey.patch_all()
 
 app = Flask(__name__)
+app.debug = True
 
-app.config['SECRET_KEY'] = 'secret!'
-
-socketio = SocketIO(app)
-
-initial_msg = [
-    '    ##    ##    ######     ##           ##           ####',
-    '   ##    ##    ##            ##           ##         ##    ##',
-    '  ######   ######     ##           ##         ##    ##',
-    ' ##    ##   ##            ##           ##         ##    ##',
-    '##    ##   ######    ######  ######    ####',
-    '',
-    'Welcome to 채트채트, ',
-    'This server is purpose on http2/long polling/web socket benchtest',
-    'If upper message dose not look like "Hello", Plz reload this page',
-    'Develop by Luavis',
-    '',
-    '',
-]
+users_new_msgs = dict()
 
 
 @app.route("/")
 def hello():
-    return render_template('index.html')
+    user_id = int(random() * 1000000000)
+    users_new_msgs[user_id] = ''  # open msgs
+
+    return render_template('index.html', user_id=user_id)
 
 
-@socketio.on('test_msg', namespace="/msg")
-def test_msg(data):
+@app.route('/msg', methods=['POST'])
+def get_msg():
+
+    uid = 0
+
+    try:
+        uid = int(request.form['uid'])
+        users_new_msgs[uid]  # cehck exist
+    except:
+        return jsonify(status='fail')
+
+    while len(users_new_msgs[uid]) is 0:  # loop msg is empty
+        sleep(0)
 
     now = datetime.utcnow() + timedelta(hours=9)  # GMT +0900
-    # emit('recv_msg', {
-    #     'text': 'Hello World'
-    # })
 
-    # for msg in initial_msg:
-    emit('recv_msg', {
-        'text': '\r\n'.join(msg for msg in initial_msg),
-        'time': now.strftime('%H:%M:%S'),
-        'timestamp': time(),
-    })
+    ret_json = jsonify(
+        status='success',
+        text=users_new_msgs[uid],
+        time=now.strftime('%H:%M:%S'),
+        timestamp=time()
+    )
+
+    users_new_msgs[uid] = ''
+
+    return ret_json
 
 
-@socketio.on('send_msg', namespace="/msg")
-def recieve_msg(data):
+@app.route('/send_msg', methods=['POST'])
+def recieve_msg():
+    msg = request.form['msg']
 
-    msg = data.get('msg')
+    uid = 0
+    try:
+        uid = int(request.form['uid'])
+    except:
+        return jsonify(status='fail')
 
     if msg is not None or len(msg) is not 0 or len(msg.lstrip()) == 0:
 
-        now = datetime.utcnow() + timedelta(hours=9)  # GMT +0900
+        for (uid, old_msg) in users_new_msgs.items():
+            users_new_msgs[uid] = msg
+    else:
+        return jsonify(status='fail')
 
-        emit("recv_msg", {
-            'text': msg.rstrip(),
-            'time': now.strftime('%H:%M:%S'),
-            'timestamp': time(),
-        }, broadcast=True)
+    return jsonify(status='success')
 
 
 if __name__ == "__main__":
-    socketio.run(app)
+    app.run(host="127.0.0.1", threaded=True)
